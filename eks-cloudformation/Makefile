@@ -34,8 +34,9 @@ secret-generator:
 		--capabilities CAPABILITY_IAM \
 		--stack-name cfn-secret-provider \
 		--template-body file://cloudformation/cfn-resource-provider.yaml || echo "will skip creation then"
-	@$(aws) cloudformation wait stack-create-complete --stack-name cfn-secret-provider || (echo "Stack creation failed, check CloudFormation Events for more details" && exit 1)
+	@$(aws) cloudformation wait stack-create-complete --stack-name cfn-secret-provider || (echo "Stack creation failed, check CloudFormation Events for more details" && $(aws) cloudformation describe-stack-events --stack-name cfn-secret-provider && exit 1)
 	@$(aws) cloudformation describe-stacks --stack-name cfn-secret-provider
+
 
 # secret-generator:
 # 	@$(aws) cloudformation create-stack \
