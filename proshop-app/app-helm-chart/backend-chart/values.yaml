@@ -23,8 +23,6 @@ ingress:
   host: proshop-app-api.akmatb.com
   ingressClass: nginx
   tll: "300"
-  issuerName: letsencrypt-prod
-
   # certificate:
   # tlsCertName: backend-tls-cert
 

@@ -80,8 +80,6 @@ metadata:
   name: "{{ .Values.applicationName }}-ingress"
   namespace: {{ .Values.namespace }}
   annotations:
-    cert-manager.io/issuer-kind: ClusterIssuer
-    cert-manager.io/issuer: {{ .Values.ingress.issuerName }}
     kubernetes.io/ingress.class: {{ .Values.ingress.ingressClass}}
     external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.host }}
     external-dns.alpha.kubernetes.io/ttl: "{{ .Values.ingress.ttl }}"

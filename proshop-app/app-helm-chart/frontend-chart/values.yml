@@ -13,7 +13,6 @@ service:
   port: 80
 
 ingress: 
-  issuerName: letsencrypt-prod
   ingressClass: nginx
   tlsSecretName: frontend-tls-secret 
   host: proshop-app-api.akmatb.com
