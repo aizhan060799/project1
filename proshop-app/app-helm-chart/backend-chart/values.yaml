@@ -20,7 +20,6 @@ appConfig:
 
 ingress: true
 host: proshop-app-api.akmatb.com
-ingressClass: nginx
 
 secretProviderClass: true
 awsSecrets: 

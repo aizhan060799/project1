@@ -81,7 +81,7 @@ metadata:
   name: "{{ .Values.applicationName }}-ingress"
   namespace: {{ .Values.namespace }}
 spec:
-  ingressClassName: {{ .Values.ingress.ingressClass}}
+  ingressClassName: nginx
   rules:
   - host: {{ .Values.ingress.host }}
     http:
