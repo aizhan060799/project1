@@ -64,7 +64,12 @@ jobs:
 # CD 
     - name: Login to EKS
       run: aws eks update-kubeconfig --name temporary-eks-cluster-${{ env.ENVIRONMENT_STAGE }}
+    
 
+    - name: Check if values.yaml exists
+      run: ls -R ./proshop-app/app-helm-chart/frontend
+
+      
     - name: Deploy the Frontend App
       env:
         IMAGE_TAG: ${{ github.sha }}  # Manually set
