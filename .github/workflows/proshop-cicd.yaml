@@ -41,7 +41,7 @@ jobs:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         REPOSITORY: proshop-backend
         IMAGE_TAG: ${{ github.sha }}
-      working-directory: ./backend
+      working-directory: ./proshop-app/backend
       run: |
         docker build -t $REPOSITORY:$IMAGE_TAG .
         docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
@@ -52,7 +52,7 @@ jobs:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         REPOSITORY: proshop-frontend
         IMAGE_TAG: ${{ github.sha }}
-      working-directory: ./frontend
+      working-directory: ./proshop-app/frontend
       run: |
         docker build -t $REPOSITORY:$IMAGE_TAG .
         docker tag $REPOSITORY:$IMAGE_TAG $REGISTRY/$REPOSITORY:$IMAGE_TAG
