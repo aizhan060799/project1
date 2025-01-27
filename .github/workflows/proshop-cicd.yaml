@@ -74,9 +74,9 @@ jobs:
         fi
 
         helm upgrade --install frontend \
-          ./app-helm-chart/ --values ./proshop-app/app-helm-chart/frontend/values.yaml \
-          --set image.tag=$IMAGE_TAG \
-          --namespace proshop-app --create-namespace 
+         ./proshop-app/app-helm-chart/ --values ./proshop-app/app-helm-chart/frontend/values.yaml \
+         --set image.tag=$IMAGE_TAG \
+         --namespace shop-app --create-namespace
 
     - name: Deploy the Backend App
       env:
