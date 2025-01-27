@@ -11,14 +11,14 @@ permissions:
 
 # workflow level variable, available only within this YAML file to this workflow
 env:
-  ENVIRONMENT_STAGE: ${{ (github.ref == 'refs/heads/main' && 'dev' }}
+  ENVIRONMENT_STAGE: "dev"
 
 jobs:
   app-deploy:
     # if main branch => production environment
     # if staging branch => staging environment
     # if any other branch name => dev environment
-    environment: ${{ (github.ref == 'refs/heads/main' && 'dev' }}
+    environment: "dev"
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
