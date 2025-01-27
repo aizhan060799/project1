@@ -19,8 +19,8 @@ appConfig:
   PAGINATION_LIMIT: 10
 
 ingress: true
-  host: proshop-app-api.akmatb.com
-  ingressClass: nginx
+host: proshop-app-api.akmatb.com
+ingressClass: nginx
 
 secretProviderClass: true
 awsSecrets: 

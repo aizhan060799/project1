@@ -10,8 +10,8 @@ service:
   port: 80
 
 ingress: true
-  ingressClass: nginx
-  host: proshop-app-api.akmatb.com
+ingressClass: nginx
+host: proshop-app-api.akmatb.com
 
 secretProviderClass: false
 
