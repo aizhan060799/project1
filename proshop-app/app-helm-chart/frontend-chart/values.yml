@@ -1,4 +1,4 @@
-applicationName: proshop-frontend 
+applicationName: proshop-frontend
 namespace: shop-app
 replicaCount: 1
 image:
