@@ -70,7 +70,7 @@ jobs:
       run: ls -R ./proshop-app/app-helm-chart/frontend-chart
 
     - name: Check 
-      run: pwd:wq
+      run: pwd
 
 
     - name: Deploy the Frontend App
