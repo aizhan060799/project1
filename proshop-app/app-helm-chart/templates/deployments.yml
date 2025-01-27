@@ -132,7 +132,6 @@ spec:
 {{- end }}
 
 ---
-{{- if eq .Values.type "backend" }}
 apiVersion: cert-manager.io/v1
 kind: Certificate
 metadata:
@@ -146,4 +145,3 @@ spec:
   commonName: {{ .Values.ingress.host }}
   dnsNames:
     - {{ .Values.ingress.host }} 
-  {{- end }}
