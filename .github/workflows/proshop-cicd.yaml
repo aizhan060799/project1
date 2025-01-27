@@ -67,9 +67,9 @@ jobs:
     
 
     - name: Check if values.yaml exists
-      run: ls -R ./proshop-app/app-helm-chart/frontend
+      run: ls -R ./proshop-app/app-helm-chart/frontend-chart
 
-      
+
     - name: Deploy the Frontend App
       env:
         IMAGE_TAG: ${{ github.sha }}  # Manually set
@@ -79,7 +79,7 @@ jobs:
         fi
 
         helm upgrade --install frontend \
-         ./proshop-app/app-helm-chart/ --values ./proshop-app/app-helm-chart/frontend/values.yaml \
+         ./proshop-app/app-helm-chart/ --values ./proshop-app/app-helm-chart/frontend-chart/values.yaml \
          --set image.tag=$IMAGE_TAG \
          --namespace shop-app --create-namespace
 
