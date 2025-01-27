@@ -19,3 +19,4 @@ certificate:
   tlsCertName: frontend-tls-cert
 
 secretProviderClass: false
+
