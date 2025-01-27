@@ -1,0 +1,5 @@
+apiVersion: v2
+name: proshop-frontend
+description: A Helm chart for ProShop backend
+version: 0.1.0
+appVersion: "1.0"

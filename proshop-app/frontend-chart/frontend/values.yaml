@@ -1,0 +1,20 @@
+applicationName: proshop-frontend
+type: dev 
+namespace: shop-app
+replicaCount: 1
+image:
+  repository: 975050202573.dkr.ecr.us-east-1.amazonaws.com/proshop-app/frontend
+port: 80
+
+env:
+  API_URL: "http://proshop-app.akmatb.com"
+  
+service:
+  type: ClusterIP
+  
+ingress: 
+  tlsSecretName: frontend-tls-secret 
+  host: proshop-app.akmatb.com
+
+certificate:
+  tlsCertName: frontend-tls-cert
