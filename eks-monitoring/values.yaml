@@ -7,13 +7,6 @@ prometheus:
   image: 
     repository: prom/prometheus
     tag: "latest"
-  resources:
-    limits:
-      cpu: 200m
-      memory: 512Mi
-    requests:
-      cpu: 100m
-      memory: 256Mi
   storage:
     size: 5Gi  
   storageClass: gp2 
@@ -31,13 +24,6 @@ nodeExporter:
     repository: prom/node-exporter  
     tag: "v1.3.1"  
   port: 9100  # Default port for Node Exporter
-  resources:
-    requests:
-      cpu: "100m"
-      memory: "50Mi"
-    limits:
-      cpu: "200m"
-      memory: "100Mi"
 
 # Kube-state-metrics Configuration
 kubeStateMetrics:
@@ -51,13 +37,6 @@ grafana:
   image:
     repository: grafana/grafana   
     tag: "latest"   
-  resources:
-    limits:
-      cpu: 200m
-      memory: 256Mi
-    requests:
-      cpu: 100m
-      memory: 128Mi
 
   ingress:
     grafana:

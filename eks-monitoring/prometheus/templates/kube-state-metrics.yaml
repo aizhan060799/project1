@@ -26,18 +26,6 @@ spec:
               name: http-metrics
             - containerPort: 8081
               name: telemetry
-          livenessProbe:
-            httpGet:
-              path: /livez
-              port: http-metrics
-            initialDelaySeconds: 5
-            timeoutSeconds: 5
-          readinessProbe:
-            httpGet:
-              path: /readyz
-              port: telemetry
-            initialDelaySeconds: 5
-            timeoutSeconds: 5
           securityContext:
             allowPrivilegeEscalation: false
             capabilities:
@@ -51,10 +39,3 @@ spec:
           args:
             - --port=8080
             - --telemetry-port=8081
-          resources:
-            requests:
-              cpu: 100m
-              memory: 200Mi
-            limits:
-              cpu: 200m
-              memory: 400Mi

@@ -24,13 +24,6 @@ spec:
               containerPort: 9100
               hostPort: 9100          # This ensures the host port is exposed
               protocol: TCP
-          resources: 
-            requests:
-              cpu: "100m"
-              memory: "50Mi"
-            limits:
-              cpu: "200m"
-              memory: "100Mi"
           securityContext:
             privileged: true  # Required for accessing host metrics
           volumeMounts:
