@@ -12,12 +12,14 @@ service:
   type: ClusterIP
   
 ingress: 
+  issuerName: letsencrypt-prod
+  ingressClass: nginx
   tlsSecretName: frontend-tls-secret 
   host: shop-redhat-dev.312redhat.com 
+  ttl: "300"
 
 certificate:
   tlsCertName: frontend-tls-cert
 
 secretProviderClass: false
-ingress: false
 
