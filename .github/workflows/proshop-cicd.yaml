@@ -75,10 +75,12 @@ jobs:
 
     - name: Deploy the Frontend App
       env:
-        IMAGE_TAG: ${{ github.sha }}  # Manually set
+        SEMANTIC_TAG: "v1.0.1" # Manually set
       run: |
         if [ "${{ env.ENVIRONMENT_STAGE }}" = "dev" ]; then
           IMAGE_TAG=${{ github.sha }}
+        else
+          IMAGE_TAG=${{ env.SEMANTIC_TAG }}
         fi
 
         helm upgrade --install frontend \
@@ -93,10 +95,11 @@ jobs:
       run: |
         if [ "${{ env.ENVIRONMENT_STAGE }}" = "dev" ]; then
           IMAGE_TAG=${{ github.sha }}
+        else
+          IMAGE_TAG=${{ env.SEMANTIC_TAG }}
         fi
 
         helm upgrade --install backend \
          ./proshop-app/app-helm-chart/ --values ./proshop-app/app-helm-chart/backend-chart/values.yaml \
-         --set appConfig.env.NODE_ENV=dev \
          --set image.tag=$IMAGE_TAG \
          --namespace shop-app --create-namespace 
