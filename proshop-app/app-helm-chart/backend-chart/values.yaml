@@ -19,10 +19,8 @@ appConfig:
   PAGINATION_LIMIT: 10
 
 ingress: 
-  tlsSecretName: backend-tls-secret 
   host: proshop-app-api.akmatb.com
   ingressClass: nginx
-  tll: "300"
   # certificate:
   # tlsCertName: backend-tls-cert
 

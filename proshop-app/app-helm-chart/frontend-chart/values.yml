@@ -14,9 +14,7 @@ service:
 
 ingress: 
   ingressClass: nginx
-  tlsSecretName: frontend-tls-secret 
   host: proshop-app-api.akmatb.com
-  ttl: "300"
 
 # certificate:
 #   tlsCertName: frontend-tls-cert

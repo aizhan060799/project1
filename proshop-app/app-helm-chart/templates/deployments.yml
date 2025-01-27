@@ -79,16 +79,8 @@ kind: Ingress
 metadata:
   name: "{{ .Values.applicationName }}-ingress"
   namespace: {{ .Values.namespace }}
-  annotations:
-    kubernetes.io/ingress.class: {{ .Values.ingress.ingressClass}}
-    external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.host }}
-    external-dns.alpha.kubernetes.io/ttl: "{{ .Values.ingress.ttl }}"
 spec:
   ingressClassName: {{ .Values.ingress.ingressClass}}
-  tls:
-  - hosts:
-    - {{ .Values.ingress.host }}
-    secretName: {{ .Values.ingress.tlsSecretName }}
   rules:
   - host: {{ .Values.ingress.host }}
     http:
