@@ -37,7 +37,7 @@ jobs:
     - name: Build and Push Backend image to Amazon ECR
       env:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        REPOSITORY: proshop-backend
+        REPOSITORY: proshop-app/backend
         IMAGE_TAG: ${{ github.sha }}
       working-directory: ./proshop-app/backend
       run: |
@@ -48,7 +48,7 @@ jobs:
     - name: Build and Push Frontend image to Amazon ECR
       env:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        REPOSITORY: proshop-frontend
+        REPOSITORY: proshop-app/frontend
         IMAGE_TAG: ${{ github.sha }}
       working-directory: ./proshop-app/frontend
       run: |
