@@ -33,12 +33,10 @@ jobs:
     - name: Login to Amazon ECR
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v2
-      # login only if dev or staging
       if: ${{ env.ENVIRONMENT_STAGE != 'dev' }}
 
 
     - name: Build and Push Backend image to Amazon ECR
-      if: ${{ env.ENVIRONMENT_STAGE != 'dev' }}
       env:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         REPOSITORY: proshop-backend
@@ -50,7 +48,6 @@ jobs:
         docker push $REGISTRY/$REPOSITORY:$IMAGE_TAG
 
     - name: Build and Push Frontend image to Amazon ECR
-      if: ${{ env.ENVIRONMENT_STAGE != 'dev' }}
       env:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
         REPOSITORY: proshop-frontend
