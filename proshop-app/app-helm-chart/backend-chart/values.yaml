@@ -8,8 +8,11 @@ image:
 port: 5000
 secretProviderClassName: document-db-credentials-provider
 volumename: secrets-store-inline
-servicePort: 80
-serviceType: ClusterIP
+
+service:
+  type: ClusterIP
+  port: 80
+  name: ClusterIP
 
 appConfig:
   envVars: []
