@@ -1,0 +1,147 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.applicationName }}-{{ .Values.type }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      app: {{ .Values.applicationName }}-{{ .Values.type }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.applicationName }}-{{ .Values.type }}
+    spec:
+      containers:
+        - name: {{ .Values.applicationName }}-{{ .Values.type }}-container
+          image: {{ .Values.image.repository }}/{{ .Values.type }}:{{ .Values.image.tag }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: {{ .Values.port }}
+          env:
+            {{- if eq .Values.type "backend" }}
+            - name: DB_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.awsSecrets.awsSecretName }}
+                  key: {{ .Values.awsSecrets.userKey }}
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.awsSecrets.awsSecretName }}
+                  key: {{ .Values.awsSecrets.passKey }}
+            - name: MONGO_URI
+              value: "{{ .Values.appConfig.env.MONGO_URI }}"
+            - name: JWT_SECRET
+              value: "{{ .Values.appConfig.env.JWT_SECRET }}"
+            - name: PAGINATION_LIMIT
+              value: "{{ .Values.appConfig.env.PAGINATION_LIMIT }}"
+            {{- end }}
+            - name: NODE_ENV
+              value: "{{ .Values.appConfig.env.NODE_ENV }}"
+          {{- if eq .Values.type "backend" }}
+          volumeMounts:
+            - name: {{ .Values.volumename }}
+              mountPath: /mnt/secrets-store
+          volumes:
+            - name: {{ .Values.volumename }}
+              csi:
+                driver: secrets-store.csi.k8s.io
+                readOnly: true
+                volumeAttributes:
+                  secretProviderClass: {{ .Values.secretProviderClassName }}
+          {{- end }}
+          serviceAccountName: {{ .Values.serviceAccountName }}
+
+
+        
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: "{{ .Values.applicationName }}-svc"
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    app: {{ .Values.applicationName }}
+  ports:
+    - name: {{ .Values.service.name }}
+      protocol: TCP
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.port }}
+  type: {{ .Values.service.type }}
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "{{ .Values.applicationName }}-ingress"
+  namespace: {{ .Values.namespace }}
+  annotations:
+    cert-manager.io/issuer-kind: ClusterIssuer
+    cert-manager.io/issuer: {{ .Values.ingress.issuerName }}
+    kubernetes.io/ingress.class: {{ .Values.ingress.ingressClass}}
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.host }}
+    external-dns.alpha.kubernetes.io/ttl: "{{ .Values.ingress.ttl }}"
+spec:
+  ingressClassName: {{ .Values.ingress.ingressClass}}
+  tls:
+  - hosts:
+    - {{ .Values.ingress.host }}
+    secretName: {{ .Values.ingress.tlsSecretName }}
+  rules:
+  - host: {{ .Values.ingress.host }}
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: "{{ .Values.applicationName }}-svc"
+            port:
+              number: {{ .Values.service.port }}
+
+---
+{{- if .Values.secretProviderClass }}
+apiVersion: secrets-store.csi.x-k8s.io/v1
+kind: SecretProviderClass
+metadata:
+  name: {{ .Values.secretProviderClassName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  provider: aws
+  parameters:
+    objects: |
+      - objectName: "arn:aws:secretsmanager:us-east-1:975050202573:secret:Admin123-YHx5B6"
+        objectType: "secretsmanager"
+        jmesPath:
+          - path: "{{ .Values.awsSecrets.usernamePath }}"
+            objectAlias: "{{ .Values.awsSecrets.userAlias }}"
+          - path: "{{ .Values.awsSecrets.passwordPath }}"
+            objectAlias: "{{ .Values.awsSecrets.passAlias }}"
+  secretObjects:                                          # Sync the secret as a native K8s secret
+    - secretName: "{{ .Values.awsSecrets.awsSecretName }}" # The name of the Kubernetes secret
+      type: Opaque
+      data:
+        - objectName: "{{ .Values.awsSecrets.userAlias }}"
+          key: {{ .Values.awsSecrets.userKey }}
+        - objectName: "{{ .Values.awsSecrets.passAlias }}"
+          key: {{ .Values.awsSecrets.passKey }}
+{{- end }}
+
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: {{ .Values.certificate.tlsCertName }}
+  namespace: {{ .Values.namespace }}
+spec:
+  secretName: {{ .Values.ingress.tlsSecretName }}
+  issuerRef:
+    name: {{ .Values.ingress.issuerName }}       
+    kind: ClusterIssuer
+  commonName: {{ .Values.ingress.host }}
+  dnsNames:
+    - {{ .Values.ingress.host }} 

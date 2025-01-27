@@ -1,0 +1,21 @@
+applicationName: proshop-frontend 
+namespace: shop-app
+replicaCount: 1
+image:
+  repository: 340924313311.dkr.ecr.us-east-1.amazonaws.com/proshop-frontend
+port: 80
+
+env:
+  API_URL: "https://shop-redhat-api-dev.312redhat.com"
+  
+service:
+  type: ClusterIP
+  
+ingress: 
+  tlsSecretName: frontend-tls-secret 
+  host: shop-redhat-dev.312redhat.com 
+
+certificate:
+  tlsCertName: frontend-tls-cert
+
+secretProviderClass: false
