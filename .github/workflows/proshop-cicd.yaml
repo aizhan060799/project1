@@ -68,6 +68,7 @@ jobs:
 
     - name: Check if values.yaml exists
       run: ls -R ./proshop-app/app-helm-chart/frontend-chart
+      run: pwd:wq
 
 
     - name: Deploy the Frontend App
@@ -79,7 +80,7 @@ jobs:
         fi
 
         helm upgrade --install frontend \
-         ./app-helm-chart/ --values ./proshop-app/app-helm-chart/frontend-chart/values.yml \
+         ./proshop-app/app-helm-chart/ --values ./proshop-app/app-helm-chart/frontend-chart/values.yml \
          --set image.tag=$IMAGE_TAG \
          --namespace shop-app --create-namespace
 
