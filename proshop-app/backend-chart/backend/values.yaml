@@ -33,12 +33,12 @@ awsSecrets:
   enabled: true
   syncSecret:
     enabled: true
-  awsSecretName: Admin123
-  userKey: Admin123
-  passKey: Admin123
-  usernamePath: "Admin123"
-  passwordPath: "Admin123"
-  userAlias: "db-Admin123"
-  passAlias: "db-Admin123" 
+  awsSecretName: admin123-secret
+  userKey: username
+  passKey: password
+  usernamePath: "username"
+  passwordPath: "password"
+  userAlias: "db-admin123"
+  passAlias: "db-admin123" 
 
 
