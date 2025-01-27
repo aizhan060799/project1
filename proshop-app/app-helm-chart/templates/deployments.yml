@@ -40,6 +40,7 @@ spec:
             {{- end }}
             - name: NODE_ENV
               value: "{{ .Values.appConfig.env.NODE_ENV }}"
+              
           {{- if eq .Values.type "backend" }}
           volumeMounts:
             - name: {{ .Values.volumename }}
