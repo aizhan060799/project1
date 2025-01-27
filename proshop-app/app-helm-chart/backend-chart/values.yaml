@@ -1,4 +1,5 @@
 applicationName: proshop-app-backend
+type: dev
 namespace: shop-app
 serviceAccountName: proshop-sa 
 replicaCount: 1
