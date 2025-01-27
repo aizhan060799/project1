@@ -115,6 +115,9 @@ metadata:
     kubernetes.io/ingress.class: {{ .Values.ingress.ingressClass}}
     external-dns.alpha.kubernetes.io/hostname: {{ .Values.ingress.host }}
     external-dns.alpha.kubernetes.io/ttl: "{{ .Values.ingress.ttl }}"
+    alb.ingress.kubernetes.io/scheme: internet-facing
+    alb.ingress.kubernetes.io/target-type: ip
+    alb.ingress.kubernetes.io/ingress.class: alb
 spec:
   ingressClassName: {{ .Values.ingress.ingressClass}}
   tls:
