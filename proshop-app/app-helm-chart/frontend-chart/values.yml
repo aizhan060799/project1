@@ -4,15 +4,12 @@ replicaCount: 1
 image:
   repository: 340924313311.dkr.ecr.us-east-1.amazonaws.com/proshop-frontend
 port: 80
-
-env:
-  API_URL: "http://proshop-app-api.akmatb.com"
   
 service:
   type: ClusterIP
   port: 80
 
-ingress: 
+ingress: true
   ingressClass: nginx
   host: proshop-app-api.akmatb.com
 

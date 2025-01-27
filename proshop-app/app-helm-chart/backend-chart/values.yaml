@@ -18,7 +18,7 @@ appConfig:
   JWT_SECRET: supersecretkey
   PAGINATION_LIMIT: 10
 
-ingress: 
+ingress: true
   host: proshop-app-api.akmatb.com
   ingressClass: nginx
 
