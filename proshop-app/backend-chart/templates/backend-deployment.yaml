@@ -109,7 +109,7 @@ spec:
   provider: aws
   parameters:
     objects: |
-      - objectName: "arn:aws:secretsmanager:us-east-1:340924313311:secret:document-db-credentials-dev-Rwp9qZ"
+      - objectName: "arn:aws:secretsmanager:us-east-1:975050202573:secret:admin1-F2n0kn"
         objectType: "secretsmanager"
         jmesPath:
           - path: "{{ .Values.awsSecrets.usernamePath }}"
