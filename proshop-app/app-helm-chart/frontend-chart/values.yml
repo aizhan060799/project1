@@ -6,7 +6,7 @@ image:
 port: 80
 
 env:
-  API_URL: "https://shop-redhat-api-dev.312redhat.com"
+  API_URL: "http://proshop-app-api.akmatb.com"
   
 service:
   type: ClusterIP
@@ -16,11 +16,11 @@ ingress:
   issuerName: letsencrypt-prod
   ingressClass: nginx
   tlsSecretName: frontend-tls-secret 
-  host: shop-redhat-dev.312redhat.com 
+  host: proshop-app-api.akmatb.com
   ttl: "300"
 
-certificate:
-  tlsCertName: frontend-tls-cert
+# certificate:
+#   tlsCertName: frontend-tls-cert
 
 secretProviderClass: false
 
