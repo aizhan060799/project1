@@ -74,7 +74,7 @@ jobs:
         fi
 
         helm upgrade --install frontend \
-          ./app-helm-chart/ --values app-helm-chart/frontend/values.yaml \
+          ./app-helm-chart/ --values ./proshop-app/app-helm-chart/frontend/values.yaml \
           --set image.tag=$IMAGE_TAG \
           --namespace proshop-app --create-namespace 
 
@@ -87,6 +87,6 @@ jobs:
         fi
 
         helm upgrade --install backend \
-          ./app-helm-chart/ --values app-helm-chart/backend/$values.yaml \
+          ./app-helm-chart/ --values ./proshop-app/app-helm-chart/backend/$values.yaml \
           --set image.tag=$IMAGE_TAG \
           --namespace proshop-app --create-namespace 
