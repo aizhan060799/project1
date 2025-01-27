@@ -1,0 +1,20 @@
+apiVersion: v2
+name: prometheus
+description: A Helm chart for deploying Prometheus to monitor an EKS cluster
+version: 1.1.0 
+appVersion: "2021.12.03" 
+
+maintainers:
+  - name: team Redhat at 312 school
+
+keywords:
+  - monitoring
+  - prometheus
+  - kube-state-metrics
+  - node-exporter
+  - eks
+
+sources:
+  - https://github.com/312school/platform-tools-24a-redhat.git
+
+dependencies: []

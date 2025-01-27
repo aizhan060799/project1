@@ -52,6 +52,13 @@ spec:
             volumeAttributes:
               secretProviderClass: {{ .Values.secretProviderClassName }}
 
+---
+
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ .Values.serviceAccountName }}
+  namespace: {{ .Values.namespace }}
 
 ---
 apiVersion: v1

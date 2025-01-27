@@ -1,0 +1,106 @@
+environment: dev
+namespace: monitoring-dev
+
+# Prometheus Configuration
+prometheus:
+  replicaCount: 1  # Single replica for dev/testing purposes
+  image: 
+    repository: prom/prometheus
+    tag: "latest"
+  resources:
+    limits:
+      cpu: 200m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+  storage:
+    size: 5Gi  
+  storageClass: gp2 
+  serviceName: "prometheus"
+  service:
+    type: ClusterIP  # For internal access 
+  podAnnotations:
+    prometheus.io/scrape: "true"
+    prometheus.io/port: "9090"
+
+# Node Exporter Configuration
+nodeExporter:
+  serviceName: "prometheus"
+  image:
+    repository: prom/node-exporter  
+    tag: "v1.3.1"  
+  port: 9100  # Default port for Node Exporter
+  resources:
+    requests:
+      cpu: "100m"
+      memory: "50Mi"
+    limits:
+      cpu: "200m"
+      memory: "100Mi"
+
+# Kube-state-metrics Configuration
+kubeStateMetrics:
+  serviceName: "kube-state-metrics-svc"
+  namespace: "kube-system"
+  port: 8080
+
+# Grafana Configuration
+grafana:
+  replicaCount: 1  # Single replica for dev/testing purposes
+  image:
+    repository: grafana/grafana   
+    tag: "latest"   
+  resources:
+    limits:
+      cpu: 200m
+      memory: 256Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  ingress:
+    grafana:
+    tlsCertName: grafana-tls-secret-dev
+    enabled: true
+    hostname: grafana-redhat-dev.312redhat.com
+    annotations:
+      spec.ingressClassName: "nginx"  
+      nginx.ingress.kubernetes.io/rewrite-target: "/"  # Allows URL path rewriting for routing traffic
+
+  serviceName: "grafana"
+  service:
+    type: ClusterIP  # For internal access
+  
+  # Persistent Volume Claim (PVC) for Grafana storage
+  persistence:
+    enabled: true
+    storageClass: "gp2"  
+    accessModes:
+      - ReadWriteOnce
+    size: 3Gi 
+
+  # AWS Secrets Manager Integration for dynamic secret retrieval
+  awsSecretsManager:
+    enabled: true
+    secretName: "arn:aws:secretsmanager:us-east-1:340924313311:secret:grafana-admin-password-xHzBey"  # The secret ARN from AWS Secrets Manager
+  
+  secrets:
+    adminPasswordSecret: "grafana-admin-password-dev"
+    
+  serviceAccount:
+    roleArn: "arn:aws:iam::340924313311:role/ServiceAccountRoleForGrafana"  
+
+  # Prometheus as the Grafana Data Source Configuration
+  datasources:
+    - name: Prometheus
+      type: prometheus
+      url: http://prometheus-svc.monitoring-dev.svc.cluster.local:9090
+      access: proxy
+      isDefault: true
+
+# TLS Certificate Configuration
+certificate:
+  tlsCertName: grafana-tls-dev  # Dynamic certificate name for dev
+ingress:
+  tlsCertName: grafana-tls-secret-dev  # TLS secret for dev

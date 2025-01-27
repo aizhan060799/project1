@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: grafana-ingress-{{ .Values.environment }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: grafana
+    environment: "{{ .Values.environment }}"
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-{{ .Values.environment }} 
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/whitelist-source-range: "68.94.127.173, 107.206.79.148"
+    external-dns.alpha.kubernetes.io/hostname: {{ .Values.grafana.ingress.hostname }} 
+spec:
+  ingressClassName: "nginx" 
+  tls:
+    - hosts:
+        - {{ .Values.grafana.ingress.hostname }}  
+      secretName:  {{ .Values.ingress.tlsCertName }}
+  rules:
+    - host: {{ .Values.grafana.ingress.hostname }}  
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service: 
+                name: {{ .Release.Name }}-svc
+                port:
+                  number: 3000

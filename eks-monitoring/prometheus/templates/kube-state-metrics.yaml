@@ -1,0 +1,60 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}-metrics
+  namespace: kube-system
+  labels:
+    k8s-app: kube-state-metrics
+    app: kube-state-metrics
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: kube-state-metrics
+  template:
+    metadata:
+      labels:
+        k8s-app: kube-state-metrics
+        app: kube-state-metrics
+    spec:
+      serviceAccountName: {{ .Release.Name }}-sa
+      containers:
+        - name: kube-state-metrics
+          image: k8s.gcr.io/kube-state-metrics/kube-state-metrics:v2.4.2
+          ports:
+            - containerPort: 8080
+              name: http-metrics
+            - containerPort: 8081
+              name: telemetry
+          livenessProbe:
+            httpGet:
+              path: /livez
+              port: http-metrics
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: telemetry
+            initialDelaySeconds: 5
+            timeoutSeconds: 5
+          securityContext:
+            allowPrivilegeEscalation: false
+            capabilities:
+              drop:
+                - ALL
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            runAsUser: 65534
+            seccompProfile:
+              type: RuntimeDefault
+          args:
+            - --port=8080
+            - --telemetry-port=8081
+          resources:
+            requests:
+              cpu: 100m
+              memory: 200Mi
+            limits:
+              cpu: 200m
+              memory: 400Mi
