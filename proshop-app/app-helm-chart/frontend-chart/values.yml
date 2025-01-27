@@ -16,8 +16,5 @@ ingress:
   ingressClass: nginx
   host: proshop-app-api.akmatb.com
 
-# certificate:
-#   tlsCertName: frontend-tls-cert
-
 secretProviderClass: false
 

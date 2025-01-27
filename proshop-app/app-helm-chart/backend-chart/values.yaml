@@ -21,8 +21,6 @@ appConfig:
 ingress: 
   host: proshop-app-api.akmatb.com
   ingressClass: nginx
-  # certificate:
-  # tlsCertName: backend-tls-cert
 
 secretProviderClass: true
 awsSecrets: 
