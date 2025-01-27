@@ -68,6 +68,8 @@ jobs:
 
     - name: Check if values.yaml exists
       run: ls -R ./proshop-app/app-helm-chart/frontend-chart
+
+    - name: Check 
       run: pwd:wq
 
 
