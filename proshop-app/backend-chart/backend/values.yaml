@@ -38,7 +38,7 @@ awsSecrets:
   passKey: admin123
   usernamePath: "adminka"
   passwordPath: "admin123"
-  userAlias: "db-adminka-username"
-  passAlias: "db-adminka-password" 
+  userAlias: "adminka"
+  passAlias: "admin123" 
 
 
