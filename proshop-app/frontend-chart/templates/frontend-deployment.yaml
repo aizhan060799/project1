@@ -31,7 +31,7 @@ metadata:
   name: "{{ .Values.applicationName }}-svc"
   namespace: {{ .Values.namespace }}
 spec:
-  type: {{ .Values.service.type}}
+  type: LoadBalancer
   ports:
     - port: {{ .Values.port }}
       targetPort: {{ .Values.port }}

@@ -103,7 +103,7 @@ spec:
       protocol: TCP
       port: {{ .Values.service.port }}
       targetPort: {{ .Values.port }}
-  type: {{ .Values.service.type }}
+  type: LoadBalancer
 
 ---
 apiVersion: networking.k8s.io/v1

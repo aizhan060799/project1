@@ -9,8 +9,6 @@ port: 80
 env:
   API_URL: "http://proshop-app.akmatb.com"
   
-service:
-  type: LoadBalancer
   
 ingress: 
   tlsSecretName: frontend-tls-secret 

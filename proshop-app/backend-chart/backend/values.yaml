@@ -16,7 +16,6 @@ env:
 
 service:
   name: http
-  type: LoadBalancer
   port: 80
 
 ingress: 
