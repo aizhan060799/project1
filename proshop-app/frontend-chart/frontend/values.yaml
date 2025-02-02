@@ -10,7 +10,7 @@ env:
   API_URL: "http://proshop-app.akmatb.com"
   
 service:
-  type: ClusterIP
+  type: LoadBalancer
   
 ingress: 
   tlsSecretName: frontend-tls-secret 

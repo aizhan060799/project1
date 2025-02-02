@@ -16,7 +16,7 @@ env:
 
 service:
   name: http
-  type: ClusterIP
+  type: LoadBalancer
   port: 80
 
 ingress: 
