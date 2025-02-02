@@ -59,6 +59,8 @@ kind: ServiceAccount
 metadata:
   name: {{ .Values.serviceAccountName }}
   namespace: {{ .Values.namespace }}
+  annotations:
+    eks.amazonaws.com/role-arn: arn:aws:iam::975050202573:role/proshop-k8s-secrets-access
 
 ---
 
