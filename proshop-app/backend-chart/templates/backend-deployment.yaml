@@ -146,7 +146,7 @@ spec:
   provider: aws
   parameters:
     objects: |
-      - objectName: "arn:aws:secretsmanager:us-east-1:975050202573:secret:admin1-F2n0kn"
+      - objectName: "arn:aws:secretsmanager:us-east-1:975050202573:secret:adminka-zEcIPd"
         objectType: "secretsmanager"
         jmesPath:
           - path: "{{ .Values.awsSecrets.usernamePath }}"

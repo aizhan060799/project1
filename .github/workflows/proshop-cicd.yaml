@@ -37,7 +37,7 @@ jobs:
     - name: Build and Push Backend image to Amazon ECR
       env:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        REPOSITORY: proshop-app/backend
+        REPOSITORY: backend
         IMAGE_TAG: ${{ github.sha }}
       working-directory: ./proshop-app/backend
       run: |
@@ -48,7 +48,7 @@ jobs:
     - name: Build and Push Frontend image to Amazon ECR
       env:
         REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        REPOSITORY: proshop-app/frontend
+        REPOSITORY: frontend
         IMAGE_TAG: ${{ github.sha }}
       working-directory: ./proshop-app/frontend
       run: |
@@ -58,7 +58,7 @@ jobs:
 
 # CD 
     - name: Login to EKS
-      run: aws eks update-kubeconfig --name temporary-eks-cluster-${{ env.ENVIRONMENT_STAGE }}
+      run: aws eks update-kubeconfig --name my-eks
     
 
 
@@ -93,17 +93,3 @@ jobs:
          --set image.tag=$IMAGE_TAG \
          --namespace shop-app --create-namespace 
 
-
-
-    - name: SonarQube Analysis
-      env:
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}  # Store the SonarQube token in GitHub Secrets
-      run: |
-        # Download and install SonarQube scanner
-        curl -sSLo sonarqube-scanner.zip https://github.com/SonarSource/sonar-scanner-cli/releases/download/4.6.2.2472/sonar-scanner-cli-4.6.2.2472-linux.zip
-         unzip sonarqube-scanner.zip
-        ./sonar-scanner-4.6.2.2472-linux/bin/sonar-scanner \
-         -Dsonar.projectKey=my_project_key \
-         -Dsonar.organization=my_organization \
-         -Dsonar.host.url=https://sonarcloud.io \
-         -Dsonar.login=$SONAR_TOKEN

@@ -3,13 +3,13 @@ namespace: shop-app
 serviceAccountName: proshop-sa
 replicaCount: 1
 image:
-  repository: 975050202573.dkr.ecr.us-east-1.amazonaws.com/proshop-app/backend
+  repository: 975050202573.dkr.ecr.us-east-1.amazonaws.com/backend
 port: 5000
 secretProviderClassName: document-db-credentials-provider
 volumename: secrets-store-inline
 
 env:
-  MONGO_URI:  "mongodb://$(DB_USERNAME):$(DB_PASSWORD)@proshop-db-975050202573.us-east-1.docdb-elastic.amazonaws.com:27017/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
+  MONGO_URI:  "mongodb://$(DB_USERNAME):$(DB_PASSWORD)@docdb-975050202573.us-east-1.docdb-elastic.amazonaws.com:27017/?replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false"
   NODE_ENV: dev
   JWT_SECRET: supersecretkey
   PAGINATION_LIMIT: 10
@@ -33,12 +33,12 @@ awsSecrets:
   enabled: true
   syncSecret:
     enabled: true
-  awsSecretName: admin1
-  userKey: username
-  passKey: password
-  usernamePath: "username"
-  passwordPath: "password"
-  userAlias: "db-admin1-username"
-  passAlias: "db-admin1-password" 
+  awsSecretName: adminka
+  userKey: adminka
+  passKey: admin123
+  usernamePath: "adminka"
+  passwordPath: "admin123"
+  userAlias: "db-adminka-username"
+  passAlias: "db-adminka-password" 
 
 

@@ -157,3 +157,6 @@ Here are some of the resources and courses used during the project:
 ## Conclusion
 
 This project provides a fully automated CI/CD pipeline using GitHub Actions, Docker, and Kubernetes. The configuration is future-proofed to allow easy deployment to staging and production environments, even though only the development environment is deployed in this project. The application is secured using TLS and AWS Secrets Manager for sensitive information management.
+helm repo add secrets-store-csi-driver https://kubernetes-sigs.github.io/secrets-store-csi-driver/charts
+helm repo update
+helm install secrets-store secrets-store-csi-driver/secrets-store-csi-driver --namespace kube-system

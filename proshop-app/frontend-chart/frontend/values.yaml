@@ -3,7 +3,7 @@ type: dev
 namespace: shop-app
 replicaCount: 1
 image:
-  repository: 975050202573.dkr.ecr.us-east-1.amazonaws.com/proshop-app/frontend
+  repository: 975050202573.dkr.ecr.us-east-1.amazonaws.com/frontend
 port: 80
 
 env:
